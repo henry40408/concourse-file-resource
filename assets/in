@@ -20,8 +20,8 @@ payload=$(mktemp /tmp/resource-in.XXXXXX)
 
 cat > $payload <&0
 
-filename="$(cat $payload|jq -r '.source.filename')
-content="$(cat $payload|jq -r '.source.content')
+filename="$(cat $payload|jq -r '.source.filename')"
+content="$(cat $payload|jq -r '.source.content')"
 
 echo "$content" > $destination/$filename
 
