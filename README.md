@@ -1,4 +1,4 @@
-# Concourse File Resource
+# Concourse File Resource [![Docker Repository on Quay](https://quay.io/repository/henry40408/concourse-file-resource/status "Docker Repository on Quay")](https://quay.io/repository/henry40408/concourse-file-resource) [![GitHub release](https://img.shields.io/github/release/henry40408/concourse-file-resource.svg)](https://github.com/henry40408/concourse-file-resource) [![license](https://img.shields.io/github/license/henry40408/concourse-file-resource.svg)](https://github.com/henry40408/concourse-file-resource)
 
 > Resource to put confidential file via payload
 
