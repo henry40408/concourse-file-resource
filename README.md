@@ -4,7 +4,7 @@
 
 ## Behavior
 
-`check` does nothing and no `out` command is not available.
+`check` does nothing and `out` command is not available.
 
 ### `in`
 
