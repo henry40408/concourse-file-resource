@@ -1,7 +1,7 @@
 FROM alpine
 
-RUN apk add --no-cache jq
+RUN apk add --no-cache python3
 
-ADD assets/* /opt/resource/
+ADD assets/*.py /opt/resource/
 
-RUN chmod +x /opt/resource/*
+RUN chmod +x /opt/resource/*.py
