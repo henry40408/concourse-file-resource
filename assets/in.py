@@ -21,7 +21,7 @@ if not filename:
 
 content = source.get("content", "")
 
-with open("{0}/{1}".format(destination, filename), "wb") as f:
+with open("{0}/{1}".format(destination, filename), "w") as f:
     f.write(content)
     version = {
         "version": {"sha256sum": calculate_checksum(filename, content)}

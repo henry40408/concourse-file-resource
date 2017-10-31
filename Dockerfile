@@ -2,6 +2,9 @@ FROM alpine
 
 RUN apk add --no-cache python3
 
-ADD assets/*.py /opt/resource/
+ADD assets/util.py /opt/resource/
 
-RUN chmod +x /opt/resource/*.py
+ADD assets/check.py /opt/resource/check
+ADD assets/in.py /opt/resource/in
+
+RUN chmod +x /opt/resource/*

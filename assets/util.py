@@ -5,6 +5,6 @@ import hashlib
 
 def calculate_checksum(filename, content):
     hasher = hashlib.sha256()
-    hasher.update(filename)
-    hasher.update(content)
+    hasher.update(filename.encode())
+    hasher.update(content.encode())
     return hasher.hexdigest()
