@@ -6,7 +6,7 @@ import sys
 
 from util import calculate_checksum
 
-payload = json.loads(sys.stdin.read().strip())
+payload = json.loads(sys.stdin.read())
 source = payload.get("source", {})
 
 filename = source.get("filename", "")
