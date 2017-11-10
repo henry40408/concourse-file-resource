@@ -1,6 +1,7 @@
 {
   "name": "concourse-file-resource",
-  "version": "1.0.0",
+  "version": "0.0.0",
+  "private": true,
   "description": "Resource to put confidential file via payload",
   "main": "index.js",
   "scripts": {
