@@ -1,0 +1,29 @@
+{
+  "name": "concourse-file-resource",
+  "version": "1.0.0",
+  "description": "Resource to put confidential file via payload",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/henry40408/concourse-file-resource.git"
+  },
+  "keywords": [],
+  "author": "Heng-Yi Wu <@henry40408>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/henry40408/concourse-file-resource/issues"
+  },
+  "homepage": "https://github.com/henry40408/concourse-file-resource#readme",
+  "devDependencies": {
+    "eslint": "^4.10.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.0",
+    "standard": "^10.0.3"
+  }
+}
