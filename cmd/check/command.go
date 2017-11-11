@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"io"
 
-	"github.com/henry40408/concourse-file-resource/internal/checksum"
+	cs "github.com/henry40408/concourse-file-resource/internal/checksum"
 	"github.com/henry40408/concourse-file-resource/internal/models"
 
 	"github.com/reconquest/hierr-go"
@@ -29,7 +29,7 @@ func checkCommand(stdin io.Reader, stdout io.Writer) error {
 	filename := bytes.NewBufferString(request.Source.FileName)
 	content := bytes.NewBufferString(request.Source.Content)
 
-	checksum, err := checksum.Calculate(filename, content)
+	checksum, err := cs.Calculate(filename, content)
 	if err != nil {
 		return hierr.Errorf(err, "unable to calculate checksum of filename and content")
 	}

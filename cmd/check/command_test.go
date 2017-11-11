@@ -15,9 +15,9 @@ import (
 )
 
 const (
-	FILENAME = "foo"
-	CONTENT  = "bar"
-	CHECKSUM = "c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2"
+	FILENAME = "id_rsa"
+	CONTENT  = "SSH private key"
+	CHECKSUM = "a8e71ecf216c1ff259d8b5dcd19ba59012ede3c770d0734e88dc496c79757f33"
 )
 
 func TestCheckCommand(t *testing.T) {
