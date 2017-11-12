@@ -16,3 +16,6 @@ type Metadata struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
+
+// Params holds parameters passed in build plan
+type Params struct{}
