@@ -1,8 +1,11 @@
-FROM quay.io/henry40408/alpine-node:base-8.9.1
+FROM golang:1.9-alpine
 
-ADD assets/*.js /opt/resource/
+COPY . /go/src/github.com/henry40408/concourse-file-resource
 
-RUN mv /opt/resource/check.js /opt/resource/check && \
-    mv /opt/resource/in.js /opt/resource/in
+RUN apk --no-cache add make && \
+    cd /go/src/github.com/henry40408/concourse-file-resource && \
+    make build-linux && \
+    rm -r /go && \
+    apk --no-cache del make
 
-RUN chmod +x /opt/resource/check /opt/resource/in
+WORKDIR /opt/resource

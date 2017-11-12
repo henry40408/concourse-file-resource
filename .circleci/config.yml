@@ -1,0 +1,9 @@
+version: 2
+jobs:
+  build:
+    working_directory: /go/src/github.com/henry40408/concourse-file-resource
+    docker:
+      - image: circleci/golang:1.9
+    steps:
+      - checkout
+      - run: bash .circleci/codecov.sh
