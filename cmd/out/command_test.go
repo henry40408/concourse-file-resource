@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/henry40408/concourse-ssh-resource/pkg/mockio"
 	hierr "github.com/reconquest/hierr-go"
 	"github.com/stretchr/testify/assert"
 )
@@ -20,27 +19,20 @@ const (
 func TestOutCommand(t *testing.T) {
 	var response outResponse
 
-	request := bytes.NewBufferString(fmt.Sprintf(`{
+	in := bytes.NewBufferString(fmt.Sprintf(`{
 		"source": {
 			"filename": "%s",
 			"content": "%s"
 		},
 		"params": {}
 	}`, FILENAME, CONTENT))
-
-	io, err := mockio.NewMockIO(request)
-	defer io.Cleanup()
+	out := bytes.NewBuffer([]byte{})
+	err := outCommand(in, out)
 	if !assert.NoError(t, err) {
 		return
 	}
 
-	err = outCommand(io.In, io.Out)
-	if !assert.NoError(t, err) {
-		return
-	}
-
-	io.Out.Seek(0, 0)
-	err = json.NewDecoder(io.Out).Decode(&response)
+	err = json.NewDecoder(out).Decode(&response)
 	if !assert.NoError(t, err) {
 		return
 	}
@@ -49,15 +41,9 @@ func TestOutCommand(t *testing.T) {
 }
 
 func TestOutCommandWithMalformedJSON(t *testing.T) {
-	request := bytes.NewBufferString("{")
-
-	io, err := mockio.NewMockIO(request)
-	defer io.Cleanup()
-	if !assert.NoError(t, err) {
-		return
-	}
-
-	err = outCommand(io.In, io.Out)
+	in := bytes.NewBufferString("{")
+	out := bytes.NewBuffer([]byte{})
+	err := outCommand(in, out)
 	if assert.Error(t, err) {
 		herr := err.(hierr.Error)
 		assert.Equal(t, "unable to parse JSON from standard input", herr.GetMessage())
