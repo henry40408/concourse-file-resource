@@ -15,12 +15,6 @@
 			"revisionTime": "2017-10-02T20:02:53Z"
 		},
 		{
-			"checksumSHA1": "MPUiPT7cEmtRBsgt4KXMTd/STf8=",
-			"path": "github.com/henry40408/concourse-ssh-resource/pkg/mockio",
-			"revision": "09ed289551291c94e356138650217d6038642d2a",
-			"revisionTime": "2017-11-11T14:07:41Z"
-		},
-		{
 			"checksumSHA1": "vrYJBnqzBJBmCmiVPgCLwxuBCmc=",
 			"path": "github.com/icrowley/fake",
 			"revision": "e64cc2cf92049a299f359734c6ea76073f2a8b2c",

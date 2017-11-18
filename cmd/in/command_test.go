@@ -8,7 +8,6 @@ import (
 	"path"
 	"testing"
 
-	"github.com/henry40408/concourse-ssh-resource/pkg/mockio"
 	hierr "github.com/reconquest/hierr-go"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
@@ -28,21 +27,15 @@ func TestInCommand(t *testing.T) {
 
 	args := []string{"in", DESTINATION}
 
-	request := bytes.NewBuffer([]byte(fmt.Sprintf(`{
+	in := bytes.NewBufferString(fmt.Sprintf(`{
 		"source": {
 			"filename": "%s",
 			"content": "%s"
 		},
 		"version": {}
-	}`, FILENAME, CONTENT)))
-
-	io, err := mockio.NewMockIO(request)
-	defer io.Cleanup()
-	if !assert.NoError(t, err) {
-		return
-	}
-
-	err = inCommand(fs, args, io.In, io.Out)
+	}`, FILENAME, CONTENT))
+	out := bytes.NewBuffer([]byte{})
+	err := inCommand(fs, args, in, out)
 	if !assert.NoError(t, err) {
 		return
 	}
@@ -61,14 +54,9 @@ func TestInCommand(t *testing.T) {
 }
 
 func TestInCommandWithMalformedJSON(t *testing.T) {
-	reader := bytes.NewBuffer([]byte(`{`))
-	io, err := mockio.NewMockIO(reader)
-	defer io.Cleanup()
-	if !assert.NoError(t, err) {
-		return
-	}
-
-	err = inCommand(afero.NewMemMapFs(), []string{}, io.In, io.Out)
+	in := bytes.NewBuffer([]byte(`{`))
+	out := bytes.NewBuffer([]byte{})
+	err := inCommand(afero.NewMemMapFs(), []string{}, in, out)
 	if assert.Error(t, err) {
 		herr := err.(hierr.Error)
 		assert.Equal(t, "unable to parse JSON from standard input", herr.GetMessage())
@@ -76,30 +64,22 @@ func TestInCommandWithMalformedJSON(t *testing.T) {
 }
 
 func TestInCommandWithInsufficientArguments(t *testing.T) {
-	reader := bytes.NewBuffer([]byte(`{}`))
-	io, err := mockio.NewMockIO(reader)
-	defer io.Cleanup()
-	if !assert.NoError(t, err) {
-		return
-	}
+	in := bytes.NewBuffer([]byte(`{}`))
+	out := bytes.NewBuffer([]byte{})
 
 	args := []string{"in"}
-	err = inCommand(afero.NewMemMapFs(), args, io.In, io.Out)
+	err := inCommand(afero.NewMemMapFs(), args, in, out)
 	if assert.Error(t, err) {
 		assert.Equal(t, "need at least one argument as destination", err.Error())
 	}
 }
 
 func TestInCommandWithNonExistedDestination(t *testing.T) {
-	reader := bytes.NewBuffer([]byte(`{}`))
-	io, err := mockio.NewMockIO(reader)
-	defer io.Cleanup()
-	if !assert.NoError(t, err) {
-		return
-	}
+	in := bytes.NewBuffer([]byte(`{}`))
+	out := bytes.NewBuffer([]byte{})
 
 	args := []string{"in", "/pmt"}
-	err = inCommand(afero.NewMemMapFs(), args, io.In, io.Out)
+	err := inCommand(afero.NewMemMapFs(), args, in, out)
 	if assert.Error(t, err) {
 		herr := err.(hierr.Error)
 		assert.Equal(t, "unable to access destination", herr.GetMessage())
@@ -112,15 +92,11 @@ func TestInCommandWithFileAsDestination(t *testing.T) {
 	fs := afero.NewMemMapFs()
 	fs.Create(destination)
 
-	reader := bytes.NewBuffer([]byte(`{}`))
-	io, err := mockio.NewMockIO(reader)
-	defer io.Cleanup()
-	if !assert.NoError(t, err) {
-		return
-	}
+	in := bytes.NewBuffer([]byte(`{}`))
+	out := bytes.NewBuffer([]byte{})
 
 	args := []string{"in", destination}
-	err = inCommand(fs, args, io.In, io.Out)
+	err := inCommand(fs, args, in, out)
 	if assert.Error(t, err) {
 		assert.Equal(t, fmt.Sprintf("destination is not a directory: %s", destination), err.Error())
 	}

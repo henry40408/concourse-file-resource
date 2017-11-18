@@ -9,7 +9,6 @@ import (
 
 	"github.com/icrowley/fake"
 
-	"github.com/henry40408/concourse-ssh-resource/pkg/mockio"
 	hierr "github.com/reconquest/hierr-go"
 	"github.com/stretchr/testify/assert"
 )
@@ -23,26 +22,19 @@ const (
 func TestCheckCommand(t *testing.T) {
 	var response checkResponse
 
-	reader := bytes.NewBuffer([]byte(fmt.Sprintf(`{
+	in := bytes.NewBufferString(fmt.Sprintf(`{
 		"source": {
 			"filename": "%s",
 			"content": "%s"
 		}
-	}`, FILENAME, strings.Replace(CONTENT, "\n", "\\n", -1))))
-
-	io, err := mockio.NewMockIO(reader)
-	defer io.Cleanup()
+	}`, FILENAME, strings.Replace(CONTENT, "\n", "\\n", -1)))
+	out := bytes.NewBuffer([]byte{})
+	err := checkCommand(in, out)
 	if !assert.NoError(t, err) {
 		return
 	}
 
-	err = checkCommand(io.In, io.Out)
-	if !assert.NoError(t, err) {
-		return
-	}
-
-	io.Out.Seek(0, 0)
-	err = json.NewDecoder(io.Out).Decode(&response)
+	err = json.NewDecoder(out).Decode(&response)
 	if !assert.NoError(t, err) {
 		return
 	}
@@ -56,27 +48,20 @@ func TestCheckCommandWithVersion(t *testing.T) {
 	var response checkResponse
 
 	randomString := fake.WordsN(3)
-	reader := bytes.NewBuffer([]byte(fmt.Sprintf(`{
+	in := bytes.NewBuffer([]byte(fmt.Sprintf(`{
 		"source": {
 			"filename": "%s",
 			"content": "%s"
 		},
 		"version": { "sha256sum": "%s" }
 	}`, FILENAME, CONTENT, randomString)))
-
-	io, err := mockio.NewMockIO(reader)
-	defer io.Cleanup()
+	out := bytes.NewBuffer([]byte{})
+	err := checkCommand(in, out)
 	if !assert.NoError(t, err) {
 		return
 	}
 
-	err = checkCommand(io.In, io.Out)
-	if !assert.NoError(t, err) {
-		return
-	}
-
-	io.Out.Seek(0, 0)
-	err = json.NewDecoder(io.Out).Decode(&response)
+	err = json.NewDecoder(out).Decode(&response)
 	if !assert.NoError(t, err) {
 		return
 	}
@@ -88,15 +73,9 @@ func TestCheckCommandWithVersion(t *testing.T) {
 }
 
 func TestCheckCommandWithMalformedJSON(t *testing.T) {
-	reader := bytes.NewBuffer([]byte(`{`))
-
-	io, err := mockio.NewMockIO(reader)
-	defer io.Cleanup()
-	if !assert.NoError(t, err) {
-		return
-	}
-
-	err = checkCommand(io.In, io.Out)
+	in := bytes.NewBufferString(`{`)
+	out := bytes.NewBuffer([]byte{})
+	err := checkCommand(in, out)
 	herr := err.(hierr.Error)
 	assert.Equal(t, herr.GetMessage(), "unable to parse JSON from standard input")
 }
