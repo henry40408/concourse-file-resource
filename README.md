@@ -1,6 +1,12 @@
 # Concourse File Resource
 
-[![CircleCI](https://circleci.com/gh/henry40408/concourse-file-resource.svg?style=shield)](https://circleci.com/gh/henry40408/concourse-file-resource) [![codecov](https://codecov.io/gh/henry40408/concourse-file-resource/branch/master/graph/badge.svg)](https://codecov.io/gh/henry40408/concourse-file-resource) [![Go Report Card](https://goreportcard.com/badge/github.com/henry40408/concourse-file-resource)](https://goreportcard.com/report/github.com/henry40408/concourse-file-resource) [![Docker Repository on Quay](https://quay.io/repository/henry40408/concourse-file-resource/status "Docker Repository on Quay")](https://quay.io/repository/henry40408/concourse-file-resource) [![GitHub release](https://img.shields.io/github/release/henry40408/concourse-file-resource.svg)](https://github.com/henry40408/concourse-file-resource) [![license](https://img.shields.io/github/license/henry40408/concourse-file-resource.svg)](https://github.com/henry40408/concourse-file-resource)
+[![CircleCI](https://circleci.com/gh/henry40408/concourse-file-resource.svg?style=shield)](https://circleci.com/gh/henry40408/concourse-file-resource)
+[![codecov](https://codecov.io/gh/henry40408/concourse-file-resource/branch/master/graph/badge.svg)](https://codecov.io/gh/henry40408/concourse-file-resource)
+[![Go Report Card](https://goreportcard.com/badge/github.com/henry40408/concourse-file-resource)](https://goreportcard.com/report/github.com/henry40408/concourse-file-resource)
+[![Docker Repository on Quay](https://quay.io/repository/henry40408/concourse-file-resource/status "Docker Repository on Quay")](https://quay.io/repository/henry40408/concourse-file-resource)
+[![GitHub release](https://img.shields.io/github/release/henry40408/concourse-file-resource.svg)](https://github.com/henry40408/concourse-file-resource)
+[![license](https://img.shields.io/github/license/henry40408/concourse-file-resource.svg)](https://github.com/henry40408/concourse-file-resource)
+![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
 
 > Resource to put confidential file via payload
 
